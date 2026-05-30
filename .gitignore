@@ -1,0 +1,23 @@
+# Environment variables - never commit API keys
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# dbt
+mobility_dbt/target/
+mobility_dbt/logs/
+mobility_dbt/dbt_packages/
+
+# Data files - too large for GitHub
+data/*.csv
+
+# OS
+.DS_Store
+Thumbs.db
