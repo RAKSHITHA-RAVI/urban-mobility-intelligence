@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: stg_trips
+    description: "Cleaned and standardised NYC taxi trip data from BigQuery public dataset"
+    columns:
+      - name: pickup_datetime
+        description: "Timestamp when trip started"
+        tests:
+          - not_null
+      - name: fare_amount
+        description: "Base fare in USD"
+        tests:
+          - not_null
+      - name: trip_distance
+        description: "Trip distance in miles"
+        tests:
+          - not_null
+      - name: time_segment
+        description: "Time of day category"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Morning Rush', 'Evening Rush', 'Late Night', 'Off Peak']
