@@ -66,6 +66,7 @@ Built as a production-style analytics platform — the same stack used by data t
 ---
 
 ## 📁 Project Structure
+````text
 urban-mobility-intelligence/
 ├── sql/                        # BigQuery analysis queries
 │   ├── 01_demand_by_hour.sql
@@ -89,7 +90,7 @@ urban-mobility-intelligence/
 │   └── monthly_trips.csv
 ├── requirements.txt
 └── README.md
-
+````
 ---
 
 ## 💡 Business Recommendations
