@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-05-30 16:22:44",
+  "weekly_summary": "WEEKLY OPS SUMMARY\n==================\n\ud83d\udcc8 DEMAND: Peak demand hours occur on weekdays between 6:00 PM and 8:00 PM, with an average of 395,978 trips and an average fare of $13.38.\n\n\ud83d\udcb0 REVENUE: Revenue highlights include a total of $758.7M in 2022, with the best month being October 2022 and a remarkable 145,182% month-over-month growth, although this growth is likely an anomaly due to the comparison period.\n\n\ud83d\ude97 TRIP PATTERNS: The majority of trips fall under the Medium-Long (10-20 miles) category, accounting for 4.6% of total trips, but generating the most revenue at $161.9M.\n\n\u26a0\ufe0f WATCH OUT: The worst month-over-month drop in revenue was -100.0% in January 2022, indicating a significant decline in demand during this period.\n\n\u2705 RECOMMENDATION: To optimize revenue, we recommend increasing the availability of drivers in the top 3 pickup zones (132, 138, and 161) by 10% during peak hours (6:00 PM - 8:00 PM) to capitalize on the high demand and average fare of $47.20.",
+  "anomalies": [
+    {
+      "trip_month": "Feb 2022",
+      "mom_growth": 21.04953171608146,
+      "flag": "\ud83d\ude80 Surge"
+    },
+    {
+      "trip_month": "Mar 2022",
+      "mom_growth": 21.644641800367115,
+      "flag": "\ud83d\ude80 Surge"
+    },
+    {
+      "trip_month": "Jul 2022",
+      "mom_growth": -10.782126119491009,
+      "flag": "\u26a0\ufe0f  Drop"
+    },
+    {
+      "trip_month": "Oct 2022",
+      "mom_growth": 15.334137222766087,
+      "flag": "\ud83d\ude80 Surge"
+    },
+    {
+      "trip_month": "Nov 2022",
+      "mom_growth": -11.679577726479994,
+      "flag": "\u26a0\ufe0f  Drop"
+    }
+  ],
+  "insights": [
+    {
+      "question": "Which time of day should we prioritise driver supply to maximise revenue?",
+      "answer": "Based on the data, we should prioritize driver supply during the evening hours (18:00) on weekdays (Monday to Thursday) to maximize revenue. This is because the average fare is highest during this time, with an average fare of $13.88 on Mondays and $13.38 on Tuesdays. By focusing driver supply during these hours, we can capitalize on the increased demand and higher fares, potentially leading to a revenue increase of at least $13.88 per trip."
+    },
+    {
+      "question": "What is the biggest revenue opportunity we are currently missing?",
+      "answer": "Based on the provided data, the biggest revenue opportunity we are currently missing is in the Long Haul (20+ miles) trip segment. With a total revenue of $32,627,720, this segment accounts for only 4.3% of the total revenue, despite making up 4.6% of the total trips. To capitalize on this opportunity, we should focus on optimizing our pricing strategy for longer trips, potentially by introducing tiered pricing or dynamic pricing that adjusts to demand and distance."
+    },
+    {
+      "question": "Which months should we run driver recruitment campaigns and why?",
+      "answer": "Based on the data, I recommend running driver recruitment campaigns in the months of May and October. \n\nMay is the month with the highest month-over-month (MoM) growth of +14518200.0%, indicating a surge in demand, which would require more drivers to meet the increased demand. \n\nOctober is the best month in terms of total revenue ($102,506,541.93) and total trips (3,544,646), suggesting high demand and revenue potential, making it an ideal time to recruit more drivers to capitalize on this demand."
+    }
+  ]
+}
