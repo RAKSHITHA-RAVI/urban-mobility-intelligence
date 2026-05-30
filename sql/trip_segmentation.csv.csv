@@ -1,0 +1,21 @@
+trip_segment,time_segment,total_trips,avg_fare,avg_tip,tip_rate_pct,total_revenue,avg_passengers
+Very Short (under 2 miles),Off Peak,10094550,7.64,1.64,22.4,128145644.73,1.4
+Short (2-5 miles),Off Peak,5642694,14.1,2.57,18.6,113711944.87,1.4
+Medium-Long (10-20 miles),Off Peak,1519652,46.25,7.65,16.7,94273659.19,1.5
+Medium (5-10 miles),Off Peak,1673092,25.61,4.41,17.2,58777271.64,1.4
+Very Short (under 2 miles),Evening Rush,3907781,7.56,1.77,24.4,51986091.87,1.4
+Short (2-5 miles),Evening Rush,2233002,14.01,2.73,19.9,46262057.35,1.4
+Short (2-5 miles),Late Night,1879184,12.99,2.58,20.2,36301036.5,1.5
+Medium-Long (10-20 miles),Evening Rush,437710,46.66,7.78,16.9,27864346.03,1.5
+Very Short (under 2 miles),Late Night,2132762,6.99,1.66,24.7,26379847.47,1.5
+Very Short (under 2 miles),Morning Rush,2081387,7.44,1.64,22.9,25570585.83,1.3
+Medium (5-10 miles),Late Night,723393,23.55,4.14,17.6,23327564.68,1.4
+Short (2-5 miles),Morning Rush,1170842,13.65,2.51,18.8,22735563.09,1.3
+Medium-Long (10-20 miles),Late Night,373010,43.69,7.02,16.1,21296097,1.4
+Medium (5-10 miles),Evening Rush,553663,25.39,4.56,18.1,19569568.96,1.4
+Medium-Long (10-20 miles),Morning Rush,302428,45.41,7.51,16.7,18424933.18,1.5
+Long Haul (20+ miles),Off Peak,215959,64.87,9.57,15.7,18098415.41,1.5
+Medium (5-10 miles),Morning Rush,333248,25.38,4.24,16.7,11423488.88,1.4
+Long Haul (20+ miles),Evening Rush,71603,64.43,9.65,15.9,6085202.17,1.5
+Long Haul (20+ miles),Late Night,60497,65.36,9.69,16.1,5006260.72,1.5
+Long Haul (20+ miles),Morning Rush,40692,65.76,9.45,15.3,3437837.2,1.5
