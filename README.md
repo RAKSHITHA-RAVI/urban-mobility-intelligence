@@ -122,7 +122,9 @@ urban-mobility-intelligence/
 - [ ] Anomaly detection system
 
 ---
+## 📊 Live Dashboard
 
+👉 [View Interactive Dashboard on Tableau Public](https://public.tableau.com/app/profile/rakshitha.ravishankar/viz/urbanmobility_17801925970410/UrbanMobilityIntelligenceNYCRide-ShareAnalytics)
 ## 👩‍💻 Author
 
 **Rakshitha Ravi** | Data & Product Analyst
