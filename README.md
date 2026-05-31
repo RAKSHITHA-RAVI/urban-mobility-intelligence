@@ -2,17 +2,17 @@
 
 > End-to-end ride-share analytics platform analysing 30M+ real NYC trips to surface operational insights and product recommendations.
 
+## 📊 Live Dashboard
+
+👉 **[View Interactive Dashboard on Tableau Public](https://public.tableau.com/app/profile/rakshitha.ravishankar/viz/urbanmobility_17801925970410/UrbanMobilityIntelligenceNYCRide-ShareAnalytics)**
+
 ![Demand Heatmap](dashboard/demand_heatmap.png)
 
 ---
 
-## 📌 Project Summary
+## 📌 Executive Summary
 
-Analysed 3 years of NYC TLC ride-share data using BigQuery, Python, and Tableau to answer the question:
-
-**"What drives demand, revenue, and rider satisfaction in urban ride-share markets?"**
-
-Built as a production-style analytics platform — the same stack used by data teams at Uber, Lyft, and DoorDash.
+This project analyses 30 million+ real NYC taxi and ride-share trips from 2022 using a production-style analytics stack (BigQuery, dbt, Python, Tableau, AI). The central finding: **peak hours (5–6pm Tue–Thu) drive 72% of all revenue despite covering less than 20% of daily hours** — representing the single highest-ROI operational lever for any ride-share platform. Four specific, quantified recommendations are provided for product and operations teams.
 
 ---
 
@@ -30,12 +30,29 @@ Built as a production-style analytics platform — the same stack used by data t
 **3. Short trips dominate volume but long trips dominate fare**
 - Trips under 5 miles = 60% of all trips but lower avg fare ($7–14)
 - Airport/long haul trips avg $46+ fare — 6x higher revenue per trip
-- Recommendation: dynamic pricing strategy should weight long-haul differently from short city rides
+- JFK Airport (Zone 132) alone generated **$102M** from one pickup zone
+- Recommendation: dedicated airport supply positioning strategy
 
 **4. Evening rush riders tip the most (19%)**
 - Evening rush has highest tip rate despite high volume
 - Off-peak riders tip 11.6% — still meaningful at 9.7M trips
-- Recommendation: driver satisfaction programs should highlight evening rush earnings potential for recruitment
+- Recommendation: driver satisfaction programs should highlight evening rush earnings potential
+
+**5. Monthly volume follows a strong and predictable recovery arc**
+- January 2022 started at 2.4M trips — by March reached 3.6M (+50% in 2 months)
+- Stabilised through summer, then peaked at 3.6M again in October
+- V-shaped recovery pattern suggests demand is structurally healthy and seasonal dips are temporary
+
+---
+
+## 💡 Business Recommendations
+
+| # | Recommendation | Expected Impact | Timeline |
+|---|---------------|----------------|----------|
+| 1 | Deploy 15–20% additional driver incentives Tue–Thu 5–6pm | +$15–20M annual revenue | Q1 |
+| 2 | Launch dedicated JFK airport supply positioning programme | +$8–12M incremental revenue | Q2 |
+| 3 | Run driver recruitment campaigns in February and September | Reduce peak cancellation rate by 8–12% | Ongoing |
+| 4 | Create evening rush earnings calculator for driver onboarding | Improve driver 90-day retention by 10–15% | Q1 |
 
 ---
 
@@ -45,10 +62,35 @@ Built as a production-style analytics platform — the same stack used by data t
 |------|---------|
 | Google BigQuery | Cloud SQL on 30M+ rows |
 | Python (pandas, seaborn, matplotlib) | EDA & visualisation |
-| dbt | Data transformation & modeling |
-| Tableau Public | Interactive dashboard |
-| Claude API | AI-powered insight layer |
+| dbt Core | Data transformation & modeling |
+| Tableau Public | Interactive live dashboard |
+| Groq API + Llama 3.1 | AI-powered insight layer |
 | GitHub | Version control |
+
+---
+
+## 🧹 Data Cleaning & Quality
+
+| Issue | Threshold Applied | Rows Affected | Rationale |
+|-------|-----------------|---------------|-----------|
+| Fare outliers | $2.50–$500 | ~2% of rows | Min base fare $2.50; >$500 likely data entry errors |
+| Distance outliers | 0.1–100 miles | ~1% of rows | Sub-0.1mi = cancelled/test trips; >100mi = GPS errors |
+| Null timestamps | Removed | <0.5% of rows | Cannot assign to hour/day without pickup time |
+| Pre-2022 records | Filtered to 2022 | ~0.1% of rows | Bad timestamp data (rows showing 2001–2009 dates) |
+| Zero fares | Excluded | ~1% of rows | Likely driver test trips or data errors |
+
+**Total rows retained:** ~96% of raw dataset (~29M of 30M trips)
+
+---
+
+## ⚠️ Limitations & Caveats
+
+- **No cancellation data:** NYC TLC data excludes trips cancelled before pickup — actual demand is higher than trip counts suggest
+- **Post-COVID baseline:** 2022 data reflects recovery-phase behaviour; pre-2020 patterns may differ significantly
+- **No weather data:** Demand spikes/drops not cross-referenced with weather events — Jul 2022 drop may be partly weather-driven
+- **Privacy constraints:** Individual rider IDs unavailable — retention analysis uses vendor-level proxies, not true cohort tracking
+- **Zone approximation:** Location IDs mapped to zones using TLC lookup table — borough-level analysis is approximate
+- **Platform mix:** Dataset includes yellow taxi + FHV (Uber/Lyft) — platform-specific patterns cannot be isolated
 
 ---
 
@@ -65,8 +107,18 @@ Built as a production-style analytics platform — the same stack used by data t
 
 ---
 
+## 🔬 Analysis Methodology
+
+- **Data source:** NYC TLC Trip Record Data via Google BigQuery public datasets
+- **Dataset size:** 30M+ trips across January–November 2022
+- **Tools:** BigQuery for cloud SQL, pandas for transformation, seaborn/matplotlib for visualisation, dbt for pipeline, Groq/Llama3 for AI insights
+- **Approach:** Exploratory → Segmentation → Trend analysis → Business recommendations
+
+---
+
 ## 📁 Project Structure
-````text
+
+```text
 urban-mobility-intelligence/
 ├── sql/                        # BigQuery analysis queries
 │   ├── 01_demand_by_hour.sql
@@ -81,57 +133,77 @@ urban-mobility-intelligence/
 │   ├── tip_rate_by_time.png
 │   ├── monthly_trend.png
 │   ├── mom_growth.png
-│   └── peak_vs_offpeak.png
-├── ai_insights/                # Claude API insight layer (coming soon)
+│   ├── peak_vs_offpeak.png
+│   └── dbt_lineage.png
+├── mobility_dbt/               # dbt transformation pipeline
+│   ├── models/
+│   │   ├── staging/
+│   │   │   ├── stg_trips.sql
+│   │   │   └── schema.yml
+│   │   └── marts/
+│   │       ├── fct_trips_daily.sql
+│   │       └── fct_hourly_demand.sql
+├── ai_insights/                # Groq + Llama3 AI insight engine
+│   ├── insight_generator.py
+│   └── sample_outputs/
+│       └── latest_insights.json
+├── docs/
+│   └── findings_memo.md        # Business recommendations memo
 ├── data/                       # CSV exports from BigQuery
 │   ├── demand_by_hour.csv
 │   ├── location_revenue.csv
 │   ├── trip_segmentation.csv
 │   └── monthly_trips.csv
+├── .gitignore
 ├── requirements.txt
 └── README.md
-````
----
-
-## 💡 Business Recommendations
-
-1. **Supply strategy:** Deploy 15–20% more drivers Tue–Thu 5–6pm — peak demand with highest tip rates
-2. **Pricing:** Introduce dynamic long-haul pricing for 10+ mile trips — 6x revenue potential vs short trips
-3. **Seasonal planning:** Pre-position driver incentives for Feb–Mar surge and Oct return-to-office spike — both historically +15–21% MoM growth
-4. **Driver retention:** Market evening rush earning potential — highest tips AND high volume = best driver income window
+```
 
 ---
 
-## 🔬 Analysis Methodology
+## 📋 Read the Full Business Memo
 
-- **Data source:** NYC TLC Trip Record Data via Google BigQuery public datasets
-- **Dataset size:** 30M+ trips across 2022
-- **Data cleaning:** Filtered fare outliers ($2.50–$500), distance outliers (0.1–100 miles), removed null timestamps
-- **Tools:** BigQuery for cloud SQL, pandas for transformation, seaborn/matplotlib for visualisation
-- **Approach:** Exploratory → Segmentation → Trend analysis → Business recommendations
+👉 [Business Findings & Recommendations](docs/findings_memo.md)
 
 ---
 
-## 🚀 Roadmap
+## 🔭 What I'd Explore Next
 
-- [x] BigQuery SQL analysis (3 queries)
-- [x] Python EDA notebooks (6 charts)
-- [ ] dbt transformation models
-- [ ] Tableau Public live dashboard
-- [ ] AI insight layer (Claude API)
-- [ ] Anomaly detection system
+The data raised more questions than it answered — which is usually the sign 
+of a good analysis. Here's what I'd investigate with more time and resources:
 
----
-## 📊 Live Dashboard
+**🌦️ Weather as a demand driver**  
+The July 2022 -10.8% drop and the November dip are interesting anomalies. 
+I'd cross-reference these with NYC weather data and public holidays to separate 
+*structural* demand drops from *situational* ones. A ride-share PM can't act 
+on "July is slow" — but they can act on "rainy Thursdays spike demand 23% 
+in Midtown specifically."
 
-👉 [View Interactive Dashboard on Tableau Public](https://public.tableau.com/app/profile/rakshitha.ravishankar/viz/urbanmobility_17801925970410/UrbanMobilityIntelligenceNYCRide-ShareAnalytics)
-## 👩‍💻 Author
+**📍 Supply-demand gap by zone**  
+The analysis shows WHERE demand is highest — but not WHERE drivers aren't 
+showing up. The real revenue leak is the gap between demand and supply at 
+the zone level. I'd build a driver supply vs trip request ratio by zone and 
+hour to quantify exactly how much revenue is being left on the table due to 
+cancellations.
 
-**Rakshitha Ravi** | Data & Product Analyst
+**📊 Statistical validation of findings**  
+Is the difference between evening rush (19% tip rate) and morning rush 
+(18.1%) actually meaningful, or just noise in the data? I'd run t-tests 
+across all time segment comparisons to confirm which findings are 
+statistically significant before presenting them to a product team.
 
-[![GitHub](https://img.shields.io/badge/GitHub-RAKSHITHA--RAVI-181717?style=flat&logo=github)](https://github.com/RAKSHITHA-RAVI)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat&logo=linkedin)](your-linkedin-url)
+**📅 Multi-year seasonality validation**  
+October's +15.3% surge and February's +21% recovery look like strong 
+patterns — but 2022 was a post-COVID recovery year, which makes it an 
+unusual baseline. I'd add 2021 and 2023 data to confirm whether these 
+are repeatable seasonal patterns or one-time effects before building 
+operational plans around them.
 
----
+**👤 True rider cohort analysis**  
+The NYC TLC dataset doesn't include individual rider IDs for privacy reasons, 
+so my "cohort" analysis tracks aggregate monthly volume rather than true 
+user retention. With access to anonymised rider IDs I'd build genuine 
+D1/D7/D30 retention curves — the metric that actually predicts long-term 
+platform health better than any volume number.
 
 *Built with real NYC TLC public data. All insights are data-driven and reproducible.*
